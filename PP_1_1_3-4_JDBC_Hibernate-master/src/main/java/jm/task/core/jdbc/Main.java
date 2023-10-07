@@ -3,7 +3,11 @@ package jm.task.core.jdbc;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
+//import java.lang.module.Configuration;
+//import java.net.spi.InetAddressResolverProvider;
+
 public class Main {
+
     public static void main(String[] args) {
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
@@ -25,3 +29,4 @@ public class Main {
         userService.dropUsersTable();
     }
 }
+
