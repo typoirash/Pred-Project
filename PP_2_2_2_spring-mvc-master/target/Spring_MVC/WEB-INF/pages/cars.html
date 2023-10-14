@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:sds="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <style>
+        table th, table td {padding: 5px;}
+        .row  {
+            font-style: italic;
+        }
+        .even-row {
+            color: chartreuse;
+        }
+        .odd-row {
+            color: blue;
+        }
+        .iven-row {
+            color: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+<h1>
+    <font color="#d2691e">Table Cars</font>
+</h1>
+<table border="2">
+    <tr>
+        <th><font color="aqua">BRAND</font></th>
+        <th><font color="#ffd700">MODEL</font></th>
+        <th><font color="gray">SERIES</font>></th>
+    </tr>
+    <tr>
+    <tr th:each="car, state : ${cars}" class="row" th:classappend="${state.odd} ? 'odd-row' : 'iven-row'">
+        <td th:utext="${car.getbrand()}"></td>
+        <td th:utext="${car.getModel()}"></td>
+        <td th:utext="${car.getSeries()}"></td>
+    </tr>
+</table>
+<body>
+</html>
