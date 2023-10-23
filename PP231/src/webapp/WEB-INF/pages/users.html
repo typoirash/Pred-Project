@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Люди</title>
+    <style>
+        table th, table td {padding: 5px;}
+        .table_title {
+            color: dimgray;
+        }
+        .non-modifiable {
+            color: dimgray;
+        }
+        .changeable {
+            color: aliceblue;
+        }
+
+    </style>
+</head>
+<body>
+<h3>Users</h3>
+<br>
+<br>
+<br>
+<table border="2">
+    <tr th:class="table_title">
+        <th th:color="">ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="user : ${users}" th:object="${user}" >
+        <td><a th:href="@{'/' + *{id}}" th:text="*{id}" class="non-modifiable"></a>ID</td>
+        <td th:text="*{name}" class="changeable">Name</td>
+        <td th:text="*{age}" class="changeable">Age</td>
+    </tr>
+
+</table>
+</body>
+</html>
