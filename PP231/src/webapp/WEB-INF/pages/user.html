@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <style>
+        .parent {
+            width: 100%;
+            height: 100%;
+            display: table;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            .inner {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+
+        .block {
+            display: inline-block;
+
+            img {
+                display: block;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div class="inner">
+        <div class="block">
+            <h2>User</h2>
+            <table border="2">
+                <tr>
+                    <th th:width="80">Id</th>
+                    <th th:width="100">Name</th>
+                    <th th:width="100">Age</th>
+                </tr>
+                <tr align="center">
+                    <td th:utext="${user.id}" >Id</td>
+                    <td th:utext="${user.name}">Name</td>
+                    <td th:utext="${user.age}">Age</td>
+                </tr>
+            </table>
+            <button onclick="window.location.href = '/users/';">Back to users</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
