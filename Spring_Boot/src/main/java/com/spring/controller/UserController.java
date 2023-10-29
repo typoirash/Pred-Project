@@ -47,6 +47,11 @@ public class UserController {
         return "user";
     }
 
+    @PostMapping
+    public String get(User user) {
+        return "redirect:/users/";
+    }
+
     @GetMapping("/del")
     public String removeUser(@RequestParam("id") long id, RedirectAttributes ra) {
         us.removeUser(id);
