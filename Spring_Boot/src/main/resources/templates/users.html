@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <style>
+        table td {
+            background: darkgrey;
+        }
+        table th {
+            background:black;
+        }
+        .table_title {
+            color: dimgray;
+        }
+        .non-modifiable {
+            color: white;
+        }
+        .changeable {
+            color: chartreuse;
+        }
+        .button {
+            background-color: #FF4500;
+            border: none;
+            color: white;
+            padding: 10px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 10px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .line {
+            color: brown;
+        }
+        .stolb {
+            color: orange;
+        }
+        .
+    </style>
+</head>
+<body>
+<div align="center">
+    <h3>Users</h3>
+    <br>
+    <button onclick="window.location.href = '/users/add';" th:align="center">Add new user</button>
+    <br>
+    <br>
+    <table border="2">
+        <thead class="thead-dark">
+        <tr th:class="table_title">
+            <th th:width="100" class="non-modifiable">ID</th>
+            <th th:width="120" class="non-modifiable">Name</th>
+            <th th:width="60" class="non-modifiable">Age</th>
+            <th th:width="80" class="non-modifiable">Edit</th>
+            <th th:width="80" class="non-modifiable">Delete</th>
+        </tr>
+        </thead>
+
+        <tr th:each="users : ${users}" align="center">
+            <td>
+                <form>
+                    <a th:href="@{'/users?id=' + ${users.id}}" th:utext="${users.id}" class="non-modifiable"></a>
+                </form>
+            </td>
+            <td th:utext="${users.name}" class="changeable">Name</td>
+            <td th:utext="${users.age}" class="changeable">Age</td>
+            <td>
+                <button type="button">
+                    <form>
+                        <a th:href="@{'/users/edit?id=' + ${users.id}}" th:utext="Edit" class="changeable"></a>
+                    </form>
+                </button>
+
+            </td>
+            <td>
+                <form>
+                    <a th:href="@{'/users/del?id=' + ${users.id}}" th:utext="Delete" class="button"></a>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
