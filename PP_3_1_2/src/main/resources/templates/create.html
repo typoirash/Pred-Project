@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <style>
+        .parent {
+            width: 100%;
+            height: 100%;
+            display: table;
+            position: absolute;
+            top: -20%;
+            left: 0;
+
+            .inner {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+
+        .block {
+            display: inline-block;
+
+            img {
+                display: block;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="parent">
+    <div class="inner">
+        <div class="block">
+            <h2>Adding a user</h2>
+            <form action="#" method="post" th:action="@{/admin/add}" th:object="${user}">
+                <table border="1" align="center" >
+                    <tr>
+                        <td>
+                            <label for="name">Enter a name</label>
+                            <input type="text" th:field="*{name}" id="name" required/>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <label for="age">Enter age</label>
+                            <input type="number" min="1" max="200" th:field="*{age}" id="age"/>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{age}">name error</div>
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>
+                            <label for="password">Enter password</label>
+                            <input type="text" th:field="*{password}" id="password"/>
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{password}">name error</div>
+                        </td>
+                    </tr>
+                    <br>
+
+                    <tr>
+                        <td>
+                            <input type="submit" value="Add user">
+                        </td>
+                    </tr>
+                    <br>
+                    <br>
+                    <br>
+                    <a th:href="@{/logout}" class="btn btn-primary">logout</a>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

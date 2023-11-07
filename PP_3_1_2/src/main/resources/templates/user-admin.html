@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:top="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <style>
+        table td {
+            background: darkgrey;
+        }
+        table th {
+            background:black;
+        }
+        .table_title {
+            color: dimgray;
+        }
+        .non-modifiable {
+            color: white;
+        }
+        .changeable {
+            color: chartreuse;
+        }
+        .button {
+            background-color: #FF4500;
+            border: none;
+            color: white;
+            padding: 10px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 10px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .line {
+            color: brown;
+        }
+        .stolb {
+            color: orange;
+        }
+        .parent {
+            width: 100%;
+            height: 100%;
+            display: table;
+            position: absolute;
+            top: -20%;
+            left: 0;
+
+            .inner {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="parent">
+    <div class="inner">
+        <div align="center">
+            <h2 align="center">User Admin</h2>
+            <form action="#" method="post" th:action="@{'/admin/user?id=' + ${user.id}}" th:object="${user}">
+                <table border="2">
+                    <thead class="thead-dark">
+                    <tr th:class="table_title">
+                        <th th:width="100" class="non-modifiable">ID</th>
+                        <th th:width="120" class="non-modifiable">Name</th>
+                        <th th:width="60" class="non-modifiable">Age</th>
+                        <th th:width="80" class="non-modifiable">Edit</th>
+                    </tr>
+                    </thead>
+                    <tr align="center" >
+                        <td th:utext="${user.id}" class="non-modifiable">ID</td>
+                        <td th:utext="${user.name}" class="changeable">Name</td>
+                        <td th:utext="${user.age}" class="changeable">Age</td>
+                        <td>
+                            <button>
+                                <form>
+                                    <a th:href="@{'/admin/edit?id=' + ${user.id}}" th:utext="Edit" class="changeable"></a>
+                                </form>
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+                <tr>
+                    <td>
+                        <input type="submit" value="Go to the menu"/>
+                    </td>
+                </tr>
+                <a th:href="@{/logout}" class="btn btn-primary">logout</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
