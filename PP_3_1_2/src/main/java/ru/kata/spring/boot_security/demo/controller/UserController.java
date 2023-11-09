@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -13,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -70,7 +70,8 @@ public class UserController {
 
     @GetMapping("admin/edit")
     public String updateUsers(@RequestParam("id") long id , Model model) {
-        model.addAttribute("user", us.getUserById(id));
+        User user = us.getUserById(id);
+        model.addAttribute("user", user);
         return "edit";
     }
 
@@ -83,21 +84,4 @@ public class UserController {
             return "redirect:/admin/";
         }
     }
-
-    /*@GetMapping("admin/edit_admin")
-    public String updateAdmin(@RequestParam("id") long id , Model model) {
-        //model.addAttribute("user", us.getUserById(id));
-        us.updateAdmin(id);
-        return "redirect:/admin/";
-    }*/
-
-    /*@PostMapping("admin/edit_admin")
-    public String updateA(@Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "ad";
-        } else {
-            us.updateAdmin(user);
-            return "redirect:/admin/";
-        }
-    }*/
 }
