@@ -36,7 +36,7 @@
     <div class="inner">
         <div class="block">
             <h2 align="center">Editing a User</h2>
-            <form action="#" method="post" th:action="@{/admin/edit}" th:object="${user}">
+            <form  method="post" th:action="@{/admin/edit}" th:object="${user}">
                 <table >
                     <tr>
                         <td>
@@ -66,6 +66,15 @@
                         </td>
                     </tr>
                     <br>
+                    <tr>
+                        <td>
+                            <label>Roles:</label> <br/>
+                            <select  multiple="multiple" size="2" th:field="*{roles}">
+                                <option th:value="1">ADMIN</option>
+                                <option th:value="2">USER</option>
+                            </select>
+                        </td>
+                    </tr>
                     <br>
                     <tr>
                         <td>
