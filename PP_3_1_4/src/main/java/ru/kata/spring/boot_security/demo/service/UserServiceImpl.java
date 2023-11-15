@@ -32,19 +32,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if (user.getRoles().hashCode() == 0) {
+            user.setRoles(Collections.singleton(new Role(2L,"USER")));
+        } 
         userRepository.save(user);
     }
 
     @Override
     public void updateUser(User user) {
         User oldUser = getUserById(user.getId());
+        if (user.getRoles().hashCode() == 0) {
+            user.setRoles(oldUser.getRoles());
+        } 
         if (user.getPassword().hashCode() == oldUser.getPassword().hashCode()) {
             user.setPassword(user.getPassword());
-            userRepository.save(user);
         } else {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
         }
+        userRepository.save(user);
     }
 
     @Override
