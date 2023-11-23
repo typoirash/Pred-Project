@@ -1,0 +1,397 @@
+
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:security="" xmlns:>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <title>Hello, world!</title>
+    <script type="text/javascript" src="../static/js/list_admin.js" th:src="@{js/list_admin.js}" defer></script>
+    <script type="text/javascript" src="../static/js/create.js" th:src="@{js/create.js}" defer></script>
+    <script type="text/javascript" src="../static/js/edit.js" th:src="@{js/edit.js}" defer></script>
+    <script type="text/javascript" src="../static/js/delete.js" th:src="@{js/delete.js}" defer></script>
+    <script type="text/javascript" src="../static/js/autorization.js" th:src="@{js/autorization.js}" defer></script>
+
+
+    <style>
+        button {
+           color: white;
+        }
+        .top-up-left {
+            white-space: nowrap;
+            margin-left: 20px;
+            font-size: 20px;
+        }
+        .top-up-right {
+            color: rgba(162,154,154,0.72);
+            position: absolute;
+            left: 93%;
+            top: 0px;
+            padding: 15px;
+        }
+        body {
+            background: white;
+            color: #000;
+        }
+        #container {
+            background: rgba(238, 235, 235, 0.91);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #topNavLine {
+            width: 100%;
+            height: 55px;
+            background: rgba(0,0,0,0.91);
+            margin: auto;
+            color: #fff;
+            padding: 15px;
+            position:fixed;
+            top:0px;
+            left:0px;
+            z-index:100;
+        }
+        .left {
+            width: 280px;
+            padding-top: 20px;
+            padding-right: 0px;
+            float: left;
+            margin-right: 0px;
+        }
+        #info {
+            padding-left: 40px;
+            padding-top: 20px;
+            width: 100%;
+            height: 100%;
+        }
+        .color-withe {
+            background: white;
+        }
+        #down {
+            margin-right: 0px;
+            margin-top: 55px;
+            height: 100%;
+        }
+        .about {
+            width: 97%;
+        }
+        .contentUser {
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 5px;
+            padding-bottom: 0px;
+            margin-top: 0px;
+        }
+        .boldtext4 {
+            font-weight: 400;
+        }
+        .boldtext6 {
+            font-weight: 600;
+        }
+        .boldtext8 {
+            font-weight: 800;
+        }
+        table {
+            width: 97%;
+            padding: 0px;
+            margin: 20px 15px 20px;
+            border-top: 1px solid rgba(239,231,231,0.91);
+        }
+        tr:nth-last-child(odd) {
+            background: rgba(0,0,0,0.03)
+        }
+        .td {
+            border-top: 2px solid rgba(239,231,231,0.91);
+            height: 50px;
+        }
+        .th {
+            height: 50px;
+        }
+        .in-stile {
+            height: 80px;
+        }
+        .in-in {
+            width: 300px
+        }
+        #del,#edit {
+            width: 500px; margin-left: 35%; margin-top: 5%;
+        }
+        .window-mod {
+            width:500px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="container">
+    <div id="topNavLine" >
+        <div class="top-up-left">
+            <div style="overflow: hidden;" >
+                <abody id="panel"></abody>
+            </div>
+        </div>
+        <a th:href="@{/logout}" class="top-up-right"  align="right">logout</a>
+    </div>
+    <div class="row" id="down">
+<!-- Left panel -->
+        <div class="col-2 color-withe left">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-admin-tab" data-toggle="pill" sec:authorize="hasAuthority('ADMIN')"
+                   href="#admin" role="tab" aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+                <a class="nav-link" id="v-pills-user-tab" data-toggle="pill"
+                   href="#user" role="tab" aria-controls="v-pills-user" aria-selected="false">User</a>
+            </div>
+        </div>
+<!-- Admin panel-->
+        <div class="col-10" id="info">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="admin" role="tabpanel" aria-labelledby="v-pills-admin-tab"
+                     sec:authorize="hasAuthority('ADMIN')">
+                    <div>
+                        <h1>Admin panel</h1>
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-users-tab" data-toggle="tab"
+                                   href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="true">Users table</a>
+                                <a class="nav-item nav-link" id="nav-new-tab" data-toggle="tab"
+                                   href="#nav-new" role="tab" aria-controls="nav-new" aria-selected="false">New User</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+<!-- Users table-->
+                            <div class="tab-pane fade show active" id="nav-users" role="tabpanel" aria-labelledby="nav-users-tab">
+                                <div class="card about" >
+                                    <div class="card-header">
+                                        <h4 class="boldtext4" style="padding-top: 5px">Users table</h4>
+                                    </div>
+                                    <div class="contentUser" >
+                                        <!--<button type="button" id="btnn"  class="btn btn-primary"> &lt;!&ndash;onclick="edit()"&ndash;&gt;
+                                            Edit
+                                        </button>
+                                        <button type="button" id="btnDelete"  onclick="out()" class="btn btn-primary"> &lt;!&ndash;onclick="edit()"&ndash;&gt;
+                                            Edit
+                                        </button>-->
+                                        <table>
+                                            <thead>
+                                            <tr  align="center" class="th">
+                                                <th style="width: 10%">ID</th>
+                                                <th style="width: 20%">Name</th>
+                                                <th style="width: 15%">Age</th>
+                                                <th style="width: 20%">Role</th>
+                                                <th style="width: 15%">Edit</th>
+                                                <th style="width: 20%">Delete</th>
+                                            </tr>
+                                            </thead>
+                                                <tbody id="nameUsers" ></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+<!-- Add new user-->
+                            <div class="tab-pane fade" id="nav-new" role="tabpanel" aria-labelledby="nav-new-tab" >
+                                <div class="card about" >
+                                    <div class="card-header">
+                                        <h4 class="boldtext4" style="padding-top: 5px">Add new user</h4>
+                                    </div>
+                                    <div class="contentUser">
+                                        <div class="card-body" align="center">
+                                            <div class="form-group col-md-6">
+                                                <label for="inputName" class="boldtext6">Name</label>
+                                                <input type="text" class="in-in form-control" id="inputName"
+                                                       placeholder="Name"  required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputAge" class="boldtext6" >Age</label>
+                                                <input type="number" class="in-in form-control" id="inputAge"
+                                                       placeholder="Age" >
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputPassword" class="boldtext6" >Password</label>
+                                                <input type="text" class="in-in form-control" id="inputPassword"
+                                                       placeholder="Password" >
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="inputRole" class="boldtext6">Role</label>
+                                                <select type="text" class="in-in form-control" id="inputRole"
+                                                         multiple="multiple" size="2">
+                                                    <option value="1" >ADMIN</option>
+                                                    <option value="2" >USER</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-success" id="userBtn">Add new user</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- User information-page -->
+                <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="v-pills-user-tab" sec:authorize="hasAnyAuthority('ADMIN','USER')">
+                    <div>
+                        <h1>User information-page</h1>
+                        <div class="card about" >
+                            <div class="card-header">
+                                <h4 class="boldtext4" style="padding-top: 5px">About user</h4>
+                            </div>
+                            <div class="contentUser">
+                                <table>
+                                    <tr  align="center" class="th">
+                                        <th style="width: 10%">ID</th>
+                                        <th style="width: 30%">Name</th>
+                                        <th style="width: 30%">Age</th>
+                                        <th style="width: 30%">Role</th>
+                                    </tr>
+                                    <tbody id="user-info"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="modal" tabindex="-1" role="dialog" id="mod1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- Modal window Edit -->
+<div class="window" id="editUser">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="editModal" aria-hidden="true" >
+        <div id="edit" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" align="center">
+                    <div class="card-body">
+                        <div class="in-stile">
+                            <label for="editId" class="boldtext6">ID</label>
+                            <input type="text" class="in-in form-control" id="editId"
+                                   placeholder="Id"  name="id" disabled>
+                        </div>
+                        <div class="in-stile">
+                            <label for="editName" class="boldtext6">Name</label>
+                            <input type="text" class="in-in form-control" id="editName"
+                                   placeholder="Name"  name="name" required>
+                        </div>
+                        <div class="in-stile">
+                            <label for="editAge" class="boldtext6" >Age</label>
+                            <input type="number" class="in-in form-control" id="editAge"
+                                   placeholder="Age" name="age" >
+                        </div>
+                        <div class="in-stile">
+                            <label for="editPassword" class="boldtext6" >Password</label>
+                            <input type="text" class="in-in form-control" id="editPassword"
+                                   name="password" placeholder="Password" >
+                        </div>
+                        <div class="in-stile">
+                            <label for="editRole" class="boldtext6">Role</label>
+                            <select type="text" class="in-in form-control" id="editRole"
+                                    multiple="multiple" size="2" >
+                                <option value="1">ADMIN</option>
+                                <option value="2">USER</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="editClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="editBtn">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal window Delete -->
+<div class="window" id="deleteUser">
+    <div class="modal fade" id="exModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteModal" aria-hidden="true">
+        <div id="del" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exModalLabel">Delete user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="deleteFormBody">
+                    <div align="center" class="modal-body">
+                        <div class="card-body" >
+                            <div class="in-stile">
+                                <label for="deleteId" class="boldtext6" >ID</label>
+                                <input type="text" class="in-in form-control" id="deleteId"
+                                       placeholder="Id"  name="id" disabled>
+                            </div>
+                            <div class="in-stile">
+                                <label for="deleteName" class="boldtext6 inputMod">Name</label>
+                                <input type="text" class="in-in form-control" id="deleteName"
+                                       placeholder="Name"  name="name" disabled>
+                            </div>
+                            <div class="in-stile">
+                                <label for="deleteAge" class="boldtext6 inputMod" >Age</label>
+                                <input type="number" class="in-in form-control" id="deleteAge"
+                                       placeholder="Age" name="age"  disabled>
+                            </div>
+                            <div class="in-stile">
+                                <label for="deletePassword" class="boldtext6 inputMod" >Password</label>
+                                <input type="text" class="in-in form-control" id="deletePassword"
+                                       name="password" placeholder="Password"  disabled>
+                            </div>
+                            <div class="in-stile">
+                                <label for="deleteRole" class="boldtext6 inputMod">Role</label>
+                                <select type="text" class="in-in form-control" id="deleteRole"
+                                        multiple="multiple" size="2" disabled>
+                                    <option value="1">ADMIN</option>
+                                    <option value="2">USER</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="delClose" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <form>
+                            <a   class="btn btn-danger" id="deleteBtn" >Delete</a>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
