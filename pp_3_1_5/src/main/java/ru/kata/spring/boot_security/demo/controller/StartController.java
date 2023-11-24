@@ -19,23 +19,8 @@ public class StartController
         this.userService = userService;
     }
 
-//    @GetMapping("/user")
-//    public String userMain() {
-//        return "list_user";
-//    }
-
     @GetMapping("/")
-    public String adminMain(Model model, Principal principal) {
-        User user1 = userService.getUserByUsername(principal.getName());
-        model.addAttribute("user", user1);
-        model.addAttribute("users", userService.allUser());
-        model.addAttribute("newUser", new User());
+    public String adminMain() {
         return "list_admin";
     }
-    /*@GetMapping("/user")
-    public String userMain(Model model, Principal principal) {
-        User user = userService.getUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "list_user";
-    }*/
 }
