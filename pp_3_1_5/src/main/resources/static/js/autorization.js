@@ -20,7 +20,10 @@ const userByUsername = async () =>{
                     <td  class="changeable">${data.userRole}</td>
                 </tr>
                 `
-                document.getElementById('v-pills-user-tab').click();
+                if (data.userRole ==='USER') {
+                    document.getElementById('v-pills-user-tab').click();
+                }
+                
                 document.getElementById('panel').innerHTML = a;
                 document.getElementById('user-info').innerHTML = b;
             })
